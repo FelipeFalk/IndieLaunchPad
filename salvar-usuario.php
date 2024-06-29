@@ -1,4 +1,5 @@
 <?php
+    include_once('db.php');
     switch ($_REQUEST["acao"]) {
         case 'cadastrar':
             $nome = $_POST["nome"];
@@ -6,7 +7,7 @@
             $senha = md5($_POST["senha"]);
             $data_nasc = $_POST["data_nasc"];
         
-            $sql = "INSERT INTO usuarios (nome, email, senha, data_nasc) VALUES ('{$nome}','{$email}','{$senha}','{$data_nasc}' )";
+            $sql = "INSERT INTO usuarios (nome_real_usuario, email_usuario, senha_usuario) VALUES ('{$nome}','{$email}','{$senha}')";
 
             $res = $conn->query($sql);
             

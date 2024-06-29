@@ -1,23 +1,34 @@
 <?php
-session_start();
+    session_start();
 
-// Usuário e senha de exemplo (substitua por verificação de banco de dados em produção)
-$valid_username = "admin";
-$valid_password = "admin";
+    if(isset($_POST['submit']) && !empty($_POST['email']) && !empty(md5($_POST['senha'])))
+    {
 
-// Pega os dados do formulário
-$username = $_POST['username'];
-$password = $_POST['password'];
+        include_once('db.php');
+        $email = $_POST['email'];
+        $senha = md5($_POST['senha']);
 
-// Verifica se os dados estão corretos
-if ($username === $valid_username && $password === $valid_password) {
-    // Login bem-sucedido
-    $_SESSION['loggedin'] = true;
-    $_SESSION['username'] = $username;
-    header("Location: dashboard.php");
-    exit;
-} else {
-    // Login falhou
-    echo "Usuário ou senha inválidos.";
-}
+        $sql = "SELECT * FROM usuarios WHERE email_usuario = '$email' and senha_usuario = '$senha'";
+        
+        $result =$conn->query($sql);
+
+        if(mysqli_num_rows($result) < 1)
+        {
+            unset($_SESSION['email']);
+            unset($_SESSION['senha']);
+            header('Location: index.html');
+        }
+        else
+        {
+            $_SESSION['email'] = $email;
+            $_SESSION['senha'] = $senha;
+            header('Location: dashboard.php');
+        }
+    }
+    else
+    {
+
+        header('Location: index.html');
+        
+    }
 ?>

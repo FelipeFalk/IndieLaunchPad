@@ -1,11 +1,23 @@
 <?php
-session_start();
-
-// Verifica se o usuário está logado
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: index.html");
-    exit;
-}
+    session_start();
+    include_once('db.php');
+    if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true))
+    {
+        unset($_SESSION['email']);
+        unset($_SESSION['senha']);
+        header('Location: index.html');
+    }
+    $logado = $_SESSION['email'];
+    if(!empty($_GET['search']))
+    {
+        $data = $_GET['search'];
+        $sql = "SELECT * FROM usuarios WHERE id_usuario LIKE '%$data%' or nome_real_usuario LIKE '%$data%' or email_usuario LIKE '%$data%' ORDER BY id_usuario DESC";
+    }
+    else
+    {
+        $sql = "SELECT * FROM usuarios ORDER BY id_usuario DESC";
+    }
+    $result =$conn->query($sql);
 ?>
 
 <!DOCTYPE html>

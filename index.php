@@ -14,18 +14,18 @@
                     <h2>Login</h2>
                     <form action="login.php" method="post">
                         <div class="mb-3">
-                            <label for="username">Username:</label>
-                            <input type="text" id="username" name="username"
+                            <label for="email">E-mail:</label>
+                            <input type="email" id="email" name="email"
                                 required><br><br>
                         </div>
 
                         <div class="mb-3">
                             <label for="password">Password:</label>
-                            <input type="password" id="password" name="password"
+                            <input type="password" id="senha" name="senha"
                                 required><br><br>
                         </div>
                         <div class="mb-3">
-                            <input type="submit" value="Login">
+                            <input type="submit" name="submit" value="Enviar">
                         </div>
 
                     </form>
