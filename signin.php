@@ -14,7 +14,7 @@
     </div>
     <div class="mb-3">
         <label>Apelido</label>
-        <input type="text" name="Apelido" class="form-control">
+        <input type="text" name="apelido" class="form-control">
     </div>
     <div class="mb-3">
         <label>E-mail</label>
@@ -25,6 +25,6 @@
         <input type="password" name="senha" class="form-control">
     </div>
     <div class="mb-3">
-        <button type="subimit" class="btn btn-primary">Enviar</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
     </div>    
 </form>
