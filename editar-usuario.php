@@ -1,30 +1,33 @@
+<body>
 <h1>Editar usuário</h1>
 <?php
-    $sql = "SELECT * FROM usuarios WHERE id=".$_REQUEST["id"];
+    $sql = "SELECT * FROM usuarios WHERE id_usuario=".$_REQUEST["id"];
     $res = $conn->query($sql);
     $row = $res->fetch_object();
-
 ?>
-<form action="?page=salvar" method="POST">
+<form action="?page=salvar-usuario" method="POST">
     <input type="hidden" name="acao" value="editar">
-    <input type="hidden" name="id" value="<?php print $row->id?>">
+    <input type="hidden" name="id" value="<?php print $row->id_usuario?>">
     <div class="mb-3">
         <label>Nome</label>
-        <input type="text" name="nome" value="<?php print $row->nome; ?>" class="form-control" > 
+        <input type="text" name="nome" value="<?php print $row->nome_real_usuario; ?>" class="form-control" > 
+    </div>
+    <div class="mb-3">
+        <label>Apelido</label>
+        <input type="text" name="apelido" value="<?php print $row->apelido_usuario; ?>" class="form-control" > 
     </div>
     <div class="mb-3">
         <label>E-mail</label>
-        <input type="email" name="email" value="<?php print $row->email; ?>" class="form-control">
+        <input type="email" name="email" value="<?php print $row->email_usuario; ?>" class="form-control">
     </div>
     <div class="mb-3">
         <label>Senha</label>
         <input type="password" name="senha" class="form-control" required>
     </div>
     <div class="mb-3">
-        <label>Data de Nascimento</label>
-        <input type="date" name="data_nasc" value="<?php print $row->data_nasc; ?>" class="form-control">
+        <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
-    <div class="mb-3">
-        <button type="subimit" class="btn btn-primary">Enviar</button>
-    </div>    
-</form>    
+        
+</form> 
+<script src="js/bootstrap.bundle.min.js"></script>  
+</body>

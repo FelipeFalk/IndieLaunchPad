@@ -11,21 +11,21 @@
         print "<tr>";
         print "<th>#</th>";    
         print "<th>Nome</th>";
+        print "<th>Apelido</th>";
         print "<th>E-mail</th>";
-        print "<th>Data de nascimento</th>";
         print "<th>Ações</th>";
         print "<tr>";
         while($row = $res->fetch_object()){
             print "<tr>";
-            print "<td>".$row->id."</td>";    
-            print "<td>".$row->nome."</td>";
-            print "<td>".$row->email."</td>";
-            print "<td>".$row->data_nasc."</td>";
+            print "<td>".$row->id_usuario."</td>";    
+            print "<td>".$row->nome_real_usuario."</td>";
+            print "<td>".$row->apelido_usuario."</td>";
+            print "<td>".$row->email_usuario."</td>";
             print "<td>
-                    <button onclick=\"location.href='?page=editar&id=".$row->id."';\" 
+                    <button onclick=\"location.href='?page=editar&id=".$row->id_usuario."';\" 
                     class='btn btn-success'>Editar</button>
                     <button onclick=\"if(confirm('Tem certeza que deseja exluiir?'))
-                    {location.href='?page=salvar&acao=excluir&id=".$row->id."'}else{false;};\" 
+                    {location.href='?page=salvar&acao=excluir&id=".$row->id_usuario."'}else{false;};\" 
                     class='btn btn-danger'>Excluir</button>
                     </td>";
             print "<tr>";
