@@ -13,6 +13,10 @@
         <input type="text" name="nome" class="form-control">
     </div>
     <div class="mb-3">
+        <label>Apelido</label>
+        <input type="text" name="Apelido" class="form-control">
+    </div>
+    <div class="mb-3">
         <label>E-mail</label>
         <input type="email" name="email" class="form-control">
     </div>

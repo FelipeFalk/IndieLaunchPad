@@ -3,11 +3,12 @@
     switch ($_REQUEST["acao"]) {
         case 'cadastrar':
             $nome = $_POST["nome"];
+            $apelido = $_POST["apelido"];
             $email = $_POST["email"];
             $senha = md5($_POST["senha"]);
             $data_nasc = $_POST["data_nasc"];
         
-            $sql = "INSERT INTO usuarios (nome_real_usuario, email_usuario, senha_usuario) VALUES ('{$nome}','{$email}','{$senha}')";
+            $sql = "INSERT INTO usuarios (nome_real_usuario, apelido_usuario, email_usuario, descricao_usuario, senha_usuario, cargos_id_cargo) VALUES ('{$nome}','{$apelido}','{$email}','','{$senha}','1')";
 
             $res = $conn->query($sql);
             
@@ -18,6 +19,7 @@
                 print"<script>alert('Não foi possível cadastrar');</script>";
                 print"<script>location.href='?page=listar';</script>";
             }
+            header('Location: index.php');
             break;
 
             case 'editar':

@@ -5,7 +5,7 @@
     {
         unset($_SESSION['email']);
         unset($_SESSION['senha']);
-        header('Location: index.html');
+        header('Location: index.php');
     }
     $logado = $_SESSION['email'];
     if(!empty($_GET['search']))
@@ -18,6 +18,11 @@
         $sql = "SELECT * FROM usuarios ORDER BY id_usuario DESC";
     }
     $result =$conn->query($sql);
+
+    // Consulta para buscar os jogos
+    $sql_jogos = "SELECT * FROM jogos ORDER BY id_jogo DESC";
+    $result_jogos = $conn->query($sql_jogos);
+
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +34,39 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <title>IndieLaunchPad</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 0;
+            margin: 20px;
+            width: 200px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .card .image-container {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .card .image-container h2 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            margin: 0;
+            padding: 10px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .card .details {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -46,6 +84,8 @@
           </div>
         </div>
       </nav>
+
+      
         
       <div class="container">
         <div class="row">
@@ -72,7 +112,25 @@
                       include("editar-usuario.php");
                       break;                                               
                   default:
-                      print "<h1>Bem vindo!</h1>";
+                      print "<h1>Jogos Disponíveis</h1>";
+                      print '<div class="cards-container" style="display: flex; flex-wrap: wrap;">';
+                      if ($result_jogos->num_rows > 0) {
+                        while($row = $result_jogos->fetch_assoc()) {
+                            $image_path = 'img/' . $row["id_jogo"] . '_imagem.jpg'; // Ajuste a extensão conforme necessário
+                            echo '<div class="card">';
+                            echo '<div class="image-container" style="background-image: url(' . $image_path . ');">';
+                            echo '<h2>' . $row["nome_jogo"] . '</h2>';
+                            echo '</div>';
+                            echo '<div class="details">';
+                            echo '<p>' . $row["descricao_jogo"] . '</p>';
+                            echo '<p>Data de lançamento: ' . $row["data_lancamento_jogo"] . '</p>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                      } else {
+                          echo "Nenhum jogo encontrado.";
+                      }
+                      print '</div>';
               }
           ?>
           </div>
