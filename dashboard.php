@@ -16,14 +16,18 @@ if (!empty($_GET['search'])) {
 $result = $conn->query($sql);
 
 // Consulta para buscar os jogos
-$sql_jogos = 'SELECT id_jogo,
-    descricao_jogo,
-    links_jogo,
-    data_lancamento_jogo,
-    nome_jogo,
-    qntd_votos_up_jogo,
-    qntd_votos_down_jogo,
-    usuarios_id_usuario FROM jogos ORDER BY data_lancamento_jogo DESC LIMIT 50';
+$sql_jogos = 'SELECT j.id_jogo,
+    j.descricao_jogo,
+    j.links_jogo,
+    j.data_lancamento_jogo,
+    j.nome_jogo,
+    j.qntd_votos_up_jogo,
+    j.qntd_votos_down_jogo,
+    j.usuarios_id_usuario,
+    u.apelido_usuario
+    FROM jogos j
+    LEFT JOIN usuarios u ON j.usuarios_id_usuario = u.id_usuario
+    ORDER BY j.data_lancamento_jogo DESC LIMIT 50';
 $result_jogos = $conn->query($sql_jogos);
 ?>
 
@@ -172,6 +176,7 @@ $result_jogos = $conn->query($sql_jogos);
                                 echo '</div>';
                                 echo '<div class="details">';
                                 echo '<p>' . $row["descricao_jogo"] . '</p>';
+                                echo '<p>Criador: ' . $row["apelido_usuario"] . '</p>';
                                 echo '<p>Data de lançamento: ' . $row["data_lancamento_jogo"] . '</p>';
                                 echo '</div>';
                                 echo '</div>';
