@@ -73,7 +73,7 @@ switch ($_REQUEST["acao"]) {
             print "<script>location.href='?page=listarJogos';</script>";
         } else {
             print "<script>alert('Não foi possível editar');</script>";
-            print "<script>location.href='?page=listarJogos';</script>";
+            print "<script>location.href='dashboard.php';</script>";
         }
         break;
 

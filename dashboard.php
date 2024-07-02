@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once ('db.php');
+include_once('db.php');
 
 // Verifica se o usuário está logado
 if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
@@ -9,6 +9,7 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
     header('Location: index.php');
 }
 
+$id_usuario = $_SESSION['id_usuario'];
 // Obtém o email do usuário logado
 $logado = $_SESSION['email'];
 
@@ -58,8 +59,9 @@ $result_jogos = $conn->query($sql_jogos);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="icon" type="image/x-icon" href="img/ico.ico">
     <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <script src="./js/bootstrap.js"></script>
 
     <title>IndieLaunchPad</title>
@@ -110,50 +112,54 @@ $result_jogos = $conn->query($sql_jogos);
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="dashboard.php">IndieLaunchPad</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <ul class="navbar-nav">
-                    <?php if ($user_role == 2 || $user_role == 3): ?>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="manageGamesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Gerenciar Jogos
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="manageGamesDropdown">
-                                <a class="dropdown-item" href="?page=cadastrarJogo">Novo Jogo</a>
-                                <a class="dropdown-item" href="?page=listarJogos">Editar Jogo</a>
-                                <?php if ($user_role == 3): ?>
-                                    <a class="dropdown-item" href="?page=listarJogos">Adicionar Tag</a>
-                                    <a class="dropdown-item" href="?page=listarJogos">Editar Tags</a>
-                                <?php endif; ?>
-                            </div>
-                        </li>
-                    <?php endif; ?>
-                    <?php if ($user_role == 3): ?>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Admin
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                                <a class="dropdown-item" href="?page=signin">Cadastrar Usuário</a>
-                                <a class="dropdown-item" href="?page=listar">Listar Usuários</a>
-                            </div>
-                        </li>
-                    <?php endif; ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Sair</a>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="dashboard.php">IndieLaunchPad</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav">
+                <?php if ($user_role == 2 || $user_role == 3) : ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="manageGamesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gerenciar Jogos
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="manageGamesDropdown">
+                            <a class="dropdown-item" href="?page=cadastrarJogo">Novo Jogo</a>
+                            <a class="dropdown-item" href="?page=listarJogos">Editar Jogo</a>
+                            <?php if ($user_role == 3) : ?>
+                                <a class="dropdown-item" href="?page=listarJogos">Adicionar Tag</a>
+                                <a class="dropdown-item" href="?page=listarJogos">Editar Tags</a>
+                            <?php endif; ?>
+                        </div>
                     </li>
-                </ul>
-            </div>
+                <?php endif; ?>
+                <?php if ($user_role == 3) : ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                            <a class="dropdown-item" href="?page=signin">Cadastrar Usuário</a>
+                            <a class="dropdown-item" href="?page=listar">Listar Usuários</a>
+                        </div>
+                    </li>
+                <?php endif; ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Perfil
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                        <?php echo "<a class='dropdown-item' href='?page=editar&id=".$id_usuario."'>Alterar dados pessoais</a>" ?>
+                        <a class="dropdown-item" href="logout.php">Sair</a>
+                    </div>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
 
     <div class="container">
         <div class="row">
@@ -161,43 +167,43 @@ $result_jogos = $conn->query($sql_jogos);
                 <?php
                 switch (@$_REQUEST["page"]) {
                     case 'calendario':
-                        include ("calendario.php");
+                        include("calendario.php");
                         break;
                     case 'admin':
                         // Verifica se o usuário é administrador (papel 3)
                         if ($user_role == 3) {
-                            include ("admin.php");
+                            include("admin.php");
                         } else {
                             echo "<p>Você não tem permissão para acessar esta página.</p>";
                         }
                         break;
                     case 'signin':
-                        include ("signin.php");
+                        include("signin.php");
                         break;
                     case 'listar':
                         // Verifica se o usuário é administrador (papel 3)
                         if ($user_role == 3) {
-                            include ("listar-usuario.php");
+                            include("listar-usuario.php");
                         } else {
                             echo "<p>Você não tem permissão para acessar esta página.</p>";
                         }
                         break;
                     case 'listarJogos':
-                        include ("listar-jogos.php");
+                        include("listar-jogos.php");
                         break;
                     case 'salvar':
-                        include ("salvar-usuario.php");
+                        include("salvar-usuario.php");
                         break;
                     case 'salvarJogo':
-                        include ("salvar-jogo.php");
+                        include("salvar-jogo.php");
                         break;
                     case 'editar':
-                        include ("editar-usuario.php");
+                        include("editar-usuario.php");
                         break;
                     case 'gerenciarJogo':
                         // Verifica se o usuário é desenvolvedor (papel 2) ou administrador (papel 3)
                         if ($user_role == 2 || $user_role == 3) {
-                            include ('gerenciar-jogos.php');
+                            include('gerenciar-jogos.php');
                         } else {
                             echo "<p>Você não tem permissão para acessar esta página.</p>";
                         }
@@ -205,7 +211,7 @@ $result_jogos = $conn->query($sql_jogos);
                     case 'cadastrarJogo':
                         // Verifica se o usuário é desenvolvedor (papel 2) ou administrador (papel 3)
                         if ($user_role == 2 || $user_role == 3) {
-                            include ('cadastrar-jogo.php');
+                            include('cadastrar-jogo.php');
                         } else {
                             echo "<p>Você não tem permissão para acessar esta página.</p>";
                         }
@@ -213,7 +219,7 @@ $result_jogos = $conn->query($sql_jogos);
                     case 'editarJogo':
                         // Verifica se o usuário é desenvolvedor (papel 2) ou administrador (papel 3)
                         if ($user_role == 2 || $user_role == 3) {
-                            include ('editar-jogo.php');
+                            include('editar-jogo.php');
                         } else {
                             echo "<p>Você não tem permissão para acessar esta página.</p>";
                         }
@@ -221,14 +227,14 @@ $result_jogos = $conn->query($sql_jogos);
                     case 'excluirJogo':
                         // Verifica se o usuário é desenvolvedor (papel 2) ou administrador (papel 3)
                         if ($user_role == 2 || $user_role == 3) {
-                            include ('excluir-jogo.php');
+                            include('excluir-jogo.php');
                         } else {
                             echo "<p>Você não tem permissão para acessar esta página.</p>";
                         }
                         break;
                     default:
                         echo "<h1 class='text-center'>Jogos Disponíveis</h1>";
-                        ?>
+                ?>
                         <!-- Formulário de Busca -->
                         <form method="GET" action="">
                             <div class="row mb-4">
@@ -236,33 +242,33 @@ $result_jogos = $conn->query($sql_jogos);
                                     <input type="text" name="search_game" class="form-control" placeholder="Pesquisar por nome do jogo" value="<?php echo isset($_GET['search_game']) ? $_GET['search_game'] : ''; ?>">
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="search_developer" class="form-control" placeholder="Pesquisar por nome do desenvolvedor" value="<?php echo isset($_GET['search_developer']) ? $_GET['search_developer'] : ''; ?>">
+                                    <input type="text" name="search_developer" class="form-control" placeholder="Pesquisar por desenvolvedor" value="<?php echo isset($_GET['search_developer']) ? $_GET['search_developer'] : ''; ?>">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Buscar</button>
                         </form>
                         <div class="cards-container" style="display: flex; flex-wrap: wrap;">
-                        <?php
-                        if ($result_jogos->num_rows > 0) {
-                            while ($row = $result_jogos->fetch_assoc()) {
-                                $image_path = 'img/' . $row["id_jogo"] . '_imagem.jpg';
-                                echo '<div class="card">';
-                                echo '<div class="image-container" style="background-image: url(' . $image_path . ');">';
-                                echo '<h2>' . $row["nome_jogo"] . '</h2>';
-                                echo '</div>';
-                                echo '<div class="details">';
-                                echo '<p>' . $row["descricao_jogo"] . '</p>';
-                                echo '<p>Criador: ' . $row["apelido_usuario"] . '</p>';
-                                echo '<p>Data de lançamento: ' . $row["data_lancamento_jogo"] . '</p>';
-                                echo '</div>';
-                                echo '</div>';
+                            <?php
+                            if ($result_jogos->num_rows > 0) {
+                                while ($row = $result_jogos->fetch_assoc()) {
+                                    $image_path = 'img/' . $row["id_jogo"] . '_imagem.jpg';
+                                    echo '<div class="card">';
+                                    echo '<div class="image-container" style="background-image: url(' . $image_path . ');">';
+                                    echo '<h2>' . $row["nome_jogo"] . '</h2>';
+                                    echo '</div>';
+                                    echo '<div class="details">';
+                                    echo '<p>' . $row["descricao_jogo"] . '</p>';
+                                    echo '<p>Criador: ' . $row["apelido_usuario"] . '</p>';
+                                    echo '<p>Data de lançamento: ' . date_format(date_create($row["data_lancamento_jogo"]), 'd/m/Y') . '</p>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
+                            } else {
+                                echo "Nenhum jogo encontrado.";
                             }
-                        } else {
-                            echo "Nenhum jogo encontrado.";
-                        }
-                        ?>
+                            ?>
                         </div>
-                        <?php
+                <?php
                         break;
                 }
                 ?>

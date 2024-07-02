@@ -1,4 +1,5 @@
 <?php
+include_once('db.php');
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -8,8 +9,9 @@ $logado = isset($_SESSION['email']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="icon" type="image/x-icon" href="img/ico.ico">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <title>Novo Usuário</title>
 </head>
 <?php if (!$logado) {
@@ -63,7 +65,7 @@ $logado = isset($_SESSION['email']);
     <div class="mb-3">
         <label>Cargo</label>
         <select name="cargo" class="form-control">' . $options . '</select>
-    </div
+    </div>
     <div class="mb-3">
         <label>Nome</label>
         <input type="text" name="nome" class="form-control">

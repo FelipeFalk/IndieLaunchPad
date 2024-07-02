@@ -18,7 +18,7 @@
     </div>
     <div class="mb-3">
         <label>Data de Lançamento</label>
-        <input type="text" name="dataLancamento" value="<?php print $row->data_lancamento_jogo; ?>" class="form-control">
+        <input type="date" name="dataLancamento" value="<?php print $row->data_lancamento_jogo; ?>" class="form-control">
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>

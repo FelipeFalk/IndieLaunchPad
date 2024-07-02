@@ -38,6 +38,30 @@ switch ($_REQUEST["acao"]) {
         }
         header('Location: index.php');
         break;
+    case 'editarSimples':
+        $nome = $_POST["nome"];
+        $apelido = $_POST["apelido"];
+        $email = $_POST["email"];
+        $senha = md5($_POST["senha"]);
+
+        $sql = "UPDATE usuarios SET
+                            nome_real_usuario = '{$nome}',
+                            email_usuario = '{$email}',
+                            apelido_usuario = '{$apelido}',
+                            senha_usuario = '{$senha}'
+                        WHERE 
+                            id_usuario=" . $_REQUEST["id"];
+
+        $res = $conn->query($sql);
+
+        if ($res == true) {
+            print "<script>alert('Editado com sucesso');</script>";
+            print "<script>location.href='dashboard.php';</script>";
+        } else {
+            print "<script>alert('Não foi possível editar');</script>";
+            print "<script>location.href='dashboard.php';</script>";
+        }
+        break;
     case 'editar':
         $nome = $_POST["nome"];
         $cargo = $_POST["cargo"];
@@ -61,7 +85,7 @@ switch ($_REQUEST["acao"]) {
             print "<script>location.href='?page=listar';</script>";
         } else {
             print "<script>alert('Não foi possível editar');</script>";
-            print "<script>location.href='?page=listar';</script>";
+            print "<script>location.href='dashboard.php';</script>";
         }
         break;
 
@@ -76,7 +100,7 @@ switch ($_REQUEST["acao"]) {
             print "<script>location.href='?page=listar';</script>";
         } else {
             print "<script>alert('Não foi possível excluir');</script>";
-            print "<script>location.href='?page=listar';</script>";
+            print "<script>location.href='dashboard.php';</script>";
         }
         break;
 }

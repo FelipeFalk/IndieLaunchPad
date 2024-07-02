@@ -1,0 +1,188 @@
+/* Estilos gerais */
+body {
+    background-color: #121212;
+    color: #FFFFFF;
+    font-family: Arial, sans-serif;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
+/* Títulos */
+h1 {
+    text-align: center;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #333333 inset;
+    -webkit-text-fill-color: #FFFFFF !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Firefox */
+input:-moz-autofill {
+    -moz-box-shadow: 0 0 0 30px #333333 inset;
+    -moz-text-fill-color: #FFFFFF !important;
+}
+
+/* Outros navegadores */
+input:-webkit-autofill {
+    box-shadow: 0 0 0 30px #333333 inset;
+    -webkit-text-fill-color: #FFFFFF !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Cards */
+.card {
+    border: 1px solid #6200EE; /* Bordas na cor roxa */
+    border-radius: 10px;
+    margin: 10px;
+    width: 300px;
+    background-color: #1F1F1F;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card .image-container {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.card .image-container h2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.card .details {
+    padding: 10px;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #6200EE; /* Cor de fundo da navbar roxa */
+    padding: 15px 0; /* Espaçamento interno superior e inferior */
+    border-bottom: 1px solid #555; /* Linha inferior da navbar */
+}
+
+.navbar-brand {
+    color: #FFFFFF; /* Cor do texto do logo */
+    font-size: 24px; /* Tamanho da fonte do logo */
+    font-weight: bold; /* Peso da fonte do logo */
+}
+
+.navbar-nav .nav-link {
+    color: #FFFFFF; /* Cor dos links na navbar */
+    font-size: 18px; /* Tamanho da fonte dos links */
+    margin-left: 15px; /* Espaçamento entre os links */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #FFFFFF; /* Cor dos links ao passar o mouse */
+}
+
+.navbar-dark .navbar-nav .dropdown-menu {
+    background-color: #6200EE; /* Cor de fundo do dropdown */
+}
+
+.navbar-dark .navbar-nav .dropdown-menu .dropdown-item {
+    color: #FFFFFF; /* Cor do texto dos itens do dropdown */
+}
+
+.navbar-dark .navbar-nav .dropdown-menu .dropdown-item:hover,
+.navbar-dark .navbar-nav .dropdown-menu .dropdown-item:focus {
+    background-color: #3700B3; /* Cor de fundo ao passar o mouse nos itens do dropdown */
+    color: #FFFFFF; /* Cor do texto ao passar o mouse nos itens do dropdown */
+}
+
+/* Formulário */
+.form-label {
+    color: #BBBBBB;
+}
+
+.form-control {
+    background-color: #333333;
+    border: none;
+    color: #FFFFFF;
+}
+
+.form-control:focus {
+    background-color: #333333;
+    border-color: #6200EE;
+    box-shadow: 0 0 0 0.2rem rgba(98, 0, 238, 0.25);
+    color: #FFFFFF;
+}
+
+/* Botões */
+.btn-primary {
+    background-color: #6200EE;
+    border-color: #6200EE;
+}
+
+.btn-primary:hover {
+    background-color: #3700B3;
+    border-color: #3700B3;
+}
+
+.btn-outline-custom {
+    color: #6200EE;
+    border-color: #6200EE;
+}
+
+.btn-outline-custom:hover {
+    background-color: #6200EE;
+    color: #FFFFFF;
+}
+
+/* Links */
+.mb-3 a {
+    color: #6200EE;
+    text-decoration: none;
+}
+
+.mb-3 a:hover {
+    text-decoration: underline;
+}
+
+/* Tabela */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    color: #FFFFFF !important; /* Cor do texto nas células */
+}
+
+.table th,
+.table td {
+    padding: 12px; /* Espaçamento interno das células */
+    border: 1px solid #333333; /* Bordas das células */
+    text-align: left;
+    color: #FFFFFF !important;
+}
+
+.table th {
+    background-color: #6200EE; /* Cor de fundo do cabeçalho */
+    color: #FFFFFF; /* Cor do texto no cabeçalho */
+    font-weight: bold; /* Texto em negrito no cabeçalho */
+}
+
+.alert-danger {
+    background-color: #721c24; /* Cor de fundo do alerta de erro */
+    color: #FFFFFF; /* Cor do texto no alerta de erro */
+    border-color: #721c24; /* Cor da borda do alerta de erro */
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+}

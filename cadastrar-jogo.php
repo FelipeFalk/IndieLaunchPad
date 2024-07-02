@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <title>Cadastrar Jogo</title>
 </head>
 <body>
@@ -21,7 +22,7 @@
         </div>
         <div class="mb-3">
             <label>Data Lançamento (ano/mes/dia)</label>
-            <input type="text" name="dataLancamento" class="form-control">
+            <input type="date" name="dataLancamento" class="form-control">
         </div>
         <div class="mb-3">
             <label>Imagem do Jogo</label>
