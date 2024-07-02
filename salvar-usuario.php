@@ -40,6 +40,7 @@ switch ($_REQUEST["acao"]) {
         break;
     case 'editar':
         $nome = $_POST["nome"];
+        $cargo = $_POST["cargo"];
         $apelido = $_POST["apelido"];
         $email = $_POST["email"];
         $senha = md5($_POST["senha"]);
@@ -49,9 +50,9 @@ switch ($_REQUEST["acao"]) {
                             email_usuario = '{$email}',
                             apelido_usuario = '{$apelido}',
                             senha_usuario = '{$senha}',
-                            cargos_id_cargo = '{$senha}',
+                            cargos_id_cargo = '{$cargo}'
                         WHERE 
-                            id_usuario_usuario = " . $_REQUEST["id"];
+                            id_usuario=" . $_REQUEST["id"];
 
         $res = $conn->query($sql);
 
