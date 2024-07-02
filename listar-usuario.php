@@ -24,7 +24,7 @@
             print "<td>
                     <button onclick=\"location.href='?page=editar&id=".$row->id_usuario."';\" 
                     class='btn btn-success'>Editar</button>
-                    <button onclick=\"if(confirm('Tem certeza que deseja exluiir?'))
+                    <button onclick=\"if(confirm('Tem certeza que deseja excluir?'))
                     {location.href='?page=salvar&acao=excluir&id=".$row->id_usuario."'}else{false;};\" 
                     class='btn btn-danger'>Excluir</button>
                     </td>";
