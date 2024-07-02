@@ -5,7 +5,7 @@
     $res = $conn->query($sql);
     $row = $res->fetch_object();
 ?>
-<form action="?page=salvar-usuario" method="POST">
+<form action="?page=salvar" method="POST">
     <input type="hidden" name="acao" value="editar">
     <input type="hidden" name="id" value="<?php print $row->id_usuario?>">
     <div class="mb-3">
