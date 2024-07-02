@@ -14,14 +14,16 @@
     if($qtd > 0){
         print "<table class='table table-hover table-striped table-bordered'>";
         print "<tr>";
-        print "<th>#</th>";    
-        print "<th>Nome</th>";
+        print "<th>#</th>";  
+        print "<th>Nome</th>";  
         print "<th>Descrição</th>";
         print "<th>Data de Lançamento</th>";
+        print "<th></th>";
         print "<tr>";
         while($row = $res->fetch_object()){
             print "<tr>";
             print "<td>".$row->id_jogo."</td>";    
+            print "<td>".$row->nome_jogo."</td>";
             print "<td>".$row->descricao_jogo."</td>";
             print "<td>".$row->data_lancamento_jogo."</td>";
             print "<td>

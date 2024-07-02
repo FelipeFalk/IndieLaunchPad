@@ -16,9 +16,15 @@ if (!empty($_GET['search'])) {
 $result = $conn->query($sql);
 
 // Consulta para buscar os jogos
-$sql_jogos = "SELECT * FROM jogos ORDER BY id_jogo DESC";
+$sql_jogos = 'SELECT id_jogo,
+    descricao_jogo,
+    links_jogo,
+    data_lancamento_jogo,
+    nome_jogo,
+    qntd_votos_up_jogo,
+    qntd_votos_down_jogo,
+    usuarios_id_usuario FROM jogos ORDER BY data_lancamento_jogo DESC LIMIT 50';
 $result_jogos = $conn->query($sql_jogos);
-
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +34,8 @@ $result_jogos = $conn->query($sql_jogos);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <script src="./js/bootstrap.js"></script>
 
     <title>IndieLaunchPad</title>
     <style>
@@ -66,6 +73,10 @@ $result_jogos = $conn->query($sql_jogos);
         .card .details {
             padding: 20px;
         }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
     </style>
 </head>
 
@@ -78,17 +89,34 @@ $result_jogos = $conn->query($sql_jogos);
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link" href="?page=calendario">Calendário</a>
-                    <a class="nav-link" href="?page=gerenciarJogo">Gerenciar Jogos</a>
-                    <a class="nav-link" href="?page=admin">Admin</a>
-                    <a class="nav-link" href="logout.php">Sair</a>
-                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="manageGamesDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gerenciar Jogos
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="manageGamesDropdown">
+                            <a class="dropdown-item" href="?page=cadastrarJogo">Novo Jogo</a>
+                            <a class="dropdown-item" href="?page=listarJogos">Editar Jogo</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                            <a class="dropdown-item" href="?page=signin">Cadastrar Usuário</a>
+                            <a class="dropdown-item" href="?page=listar">Listar Usuários</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Sair</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
-
-
 
     <div class="container">
         <div class="row">
