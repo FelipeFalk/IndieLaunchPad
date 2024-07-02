@@ -114,6 +114,9 @@ $result_jogos = $conn->query($sql_jogos);
                     case 'salvar':
                         include ("salvar-usuario.php");
                         break;
+                    case 'salvarJogo':
+                        include ("salvar-jogo.php");
+                        break;
                     case 'editar':
                         include ("editar-usuario.php");
                         break;

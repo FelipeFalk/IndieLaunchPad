@@ -45,46 +45,50 @@ switch ($_REQUEST["acao"]) {
         } else {
             echo "Usuário não encontrado.";
         }
-        header('Location: index.php');
+        header('Location: dashboard.php');
         break;
 
     case 'editar':
-        $nome = $_POST["nome"];
-        $email = $_POST["email"];
-        $senha = md5($_POST["senha"]);
-        $data_nasc = $_POST["data_nasc"];
+        
+        $nome = $_POST["nomeJogo"];
+        $descricao = $_POST["descricaoJogo"];
+        $dataLancamento = $_POST["dataLancamento"];
+        $id = $_REQUEST["id"];
 
-        $sql = "UPDATE usuarios SET
-                            nome = '{$nome}',
-                            email = '{$email}',
-                            senha = '{$senha}',
-                            data_nasc = '{$data_nasc}'
+        print("asd");
+
+        var_dump('$nome', '$descricao', '$dataLancamento', '$id');
+
+        $sql = "UPDATE jogos SET
+                            nome_jogo = '{$nome}',
+                            descricao_jogo = '{$descricao}',
+                            data_lancamento_jogo = '{$dataLancamento}'
                         WHERE 
-                            id=" . $_REQUEST["id"];
+                            id_jogo=" . $_REQUEST["id"];
 
         $res = $conn->query($sql);
 
         if ($res == true) {
             print "<script>alert('Editado com sucesso');</script>";
-            print "<script>location.href='?page=listar';</script>";
+            print "<script>location.href='?page=listarJogos';</script>";
         } else {
             print "<script>alert('Não foi possível editar');</script>";
-            print "<script>location.href='?page=listar';</script>";
+            print "<script>location.href='?page=listarJogos';</script>";
         }
         break;
 
-    /*case 'excluir':
+    case 'excluir':
 
-        $sql = "DELETE FROM usuarios WHERE id=" . $_REQUEST["id"];
+        $sql = "DELETE FROM jogos WHERE id_jogo=" . $_REQUEST["id"];
 
         $res = $conn->query($sql);
 
         if ($res == true) {
             print "<script>alert('Excluído com sucesso');</script>";
-            print "<script>location.href='?page=listar';</script>";
+            print "<script>location.href='?page=listarJogos';</script>";
         } else {
             print "<script>alert('Não foi possível excluir');</script>";
-            print "<script>location.href='?page=listar';</script>";
+            print "<script>location.href='?page=listarJogos';</script>";
         }
-        break;*/
+        break;
 }

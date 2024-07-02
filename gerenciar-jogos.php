@@ -12,7 +12,6 @@
             <div>
               <a class="nav-link" href="?page=cadastrarJogo">Novo Jogo</a>
               <a class="nav-link" href="?page=listarJogos">Editar Jogo</a>
-              <a class="nav-link" href="?page=excluirJogo">Excluir Jogo</a>
             </div>
 
       <script src="js/bootstrap.bundle.min.js"></script>

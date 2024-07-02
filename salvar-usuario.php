@@ -52,7 +52,7 @@ switch ($_REQUEST["acao"]) {
                             senha = '{$senha}',
                             cargos_id_cargo = '{$senha}',
                         WHERE 
-                            id=" . $_REQUEST["id"];
+                            id_usuario=" . $_REQUEST["id"];
 
         $res = $conn->query($sql);
 

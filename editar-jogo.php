@@ -5,7 +5,7 @@
     $res = $conn->query($sql);
     $row = $res->fetch_object();
 ?>
-<form action="?page=salvar-jogo" method="POST">
+<form action="?page=salvarJogo" method="POST">
     <input type="hidden" name="acao" value="editar">
     <input type="hidden" name="id" value="<?php print $row->id_jogo?>">
     <div class="mb-3">
@@ -18,7 +18,7 @@
     </div>
     <div class="mb-3">
         <label>Data de Lançamento</label>
-        <input type="email" name="dataLancamento" value="<?php print $row->data_lancamento_jogo; ?>" class="form-control">
+        <input type="text" name="dataLancamento" value="<?php print $row->data_lancamento_jogo; ?>" class="form-control">
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>
