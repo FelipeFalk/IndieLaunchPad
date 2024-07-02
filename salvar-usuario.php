@@ -6,9 +6,8 @@
             $apelido = $_POST["apelido"];
             $email = $_POST["email"];
             $senha = md5($_POST["senha"]);
-            $data_nasc = $_POST["data_nasc"];
         
-            $sql = "INSERT INTO usuarios (nome_real_usuario, apelido_usuario, email_usuario, descricao_usuario, senha_usuario, cargos_id_cargo) VALUES ('{$nome}','{$apelido}','{$email}','','{$senha}','1')";
+            $sql = "INSERT INTO usuarios (nome_real_usuario, apelido_usuario, email_usuario, senha_usuario, cargos_id_cargo) VALUES ('{$nome}','{$apelido}','{$email}','{$senha}','1')";
 
             $res = $conn->query($sql);
             

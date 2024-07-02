@@ -35,13 +35,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`usuarios` (
   `nome_real_usuario` VARCHAR(60) NOT NULL,
   `apelido_usuario` VARCHAR(60) NOT NULL,
   `email_usuario` VARCHAR(100) NOT NULL,
-  `descricao_usuario` VARCHAR(45) NOT NULL,
+  `descricao_usuario` VARCHAR(45),
   `senha_usuario` VARCHAR(100) NOT NULL,
   `cargos_id_cargo` INT NOT NULL,
   PRIMARY KEY (`id_usuario`),
-  INDEX `fk_usuarios_cargos_idx` (`cargos_id_cargo` ASC) VISIBLE,
-  UNIQUE INDEX `nome_fantasia_usuario_UNIQUE` (`apelido_usuario` ASC) VISIBLE,
-  UNIQUE INDEX `email_usuario_UNIQUE` (`email_usuario` ASC) VISIBLE,
+  INDEX `fk_usuarios_cargos_idx` (`cargos_id_cargo` ASC),
+  UNIQUE INDEX `nome_fantasia_usuario_UNIQUE` (`apelido_usuario` ASC),
+  UNIQUE INDEX `email_usuario_UNIQUE` (`email_usuario` ASC),
   CONSTRAINT `fk_usuarios_cargos`
     FOREIGN KEY (`cargos_id_cargo`)
     REFERENCES `mydb`.`cargos` (`id_cargo`)
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`jogos` (
   `qntd_votos_down_jogo` INT NOT NULL,
   `usuarios_id_usuario` INT NOT NULL,
   PRIMARY KEY (`id_jogo`),
-  INDEX `fk_jogos_usuarios1_idx` (`usuarios_id_usuario` ASC) VISIBLE,
+  INDEX `fk_jogos_usuarios1_idx` (`usuarios_id_usuario` ASC),
   CONSTRAINT `fk_jogos_usuarios1`
     FOREIGN KEY (`usuarios_id_usuario`)
     REFERENCES `mydb`.`usuarios` (`id_usuario`)
@@ -90,8 +90,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`jogos_has_categorias` (
   `jogos_id_jogo` INT NOT NULL,
   `categorias_id_categoria` INT NOT NULL,
   PRIMARY KEY (`jogos_id_jogo`, `categorias_id_categoria`),
-  INDEX `fk_jogos_has_categorias_categorias1_idx` (`categorias_id_categoria` ASC) VISIBLE,
-  INDEX `fk_jogos_has_categorias_jogos1_idx` (`jogos_id_jogo` ASC) VISIBLE,
+  INDEX `fk_jogos_has_categorias_categorias1_idx` (`categorias_id_categoria` ASC),
+  INDEX `fk_jogos_has_categorias_jogos1_idx` (`jogos_id_jogo` ASC),
   CONSTRAINT `fk_jogos_has_categorias_jogos1`
     FOREIGN KEY (`jogos_id_jogo`)
     REFERENCES `mydb`.`jogos` (`id_jogo`)
