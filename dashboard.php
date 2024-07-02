@@ -23,6 +23,7 @@ if ($result_user_role->num_rows > 0) {
 }
 
 // Consulta para buscar os jogos com o nome do criador
+// Consulta SQL para buscar jogos com filtros
 $sql_jogos = 'SELECT j.id_jogo,
     j.descricao_jogo,
     j.links_jogo,
@@ -34,7 +35,20 @@ $sql_jogos = 'SELECT j.id_jogo,
     u.apelido_usuario
     FROM jogos j
     LEFT JOIN usuarios u ON j.usuarios_id_usuario = u.id_usuario
-    ORDER BY j.data_lancamento_jogo DESC LIMIT 50';
+    WHERE 1=1';
+
+// Aplicar filtros
+if (!empty($_GET['search_game'])) {
+    $search_game = $_GET['search_game'];
+    $sql_jogos .= " AND j.nome_jogo LIKE '%$search_game%'";
+}
+if (!empty($_GET['search_developer'])) {
+    $search_developer = $_GET['search_developer'];
+    $sql_jogos .= " AND u.apelido_usuario LIKE '%$search_developer%'";
+}
+
+$sql_jogos .= " ORDER BY j.data_lancamento_jogo DESC LIMIT 50";
+
 $result_jogos = $conn->query($sql_jogos);
 ?>
 
@@ -145,7 +159,6 @@ $result_jogos = $conn->query($sql_jogos);
         <div class="row">
             <div class="col mt-5">
                 <?php
-                include ("db.php");
                 switch (@$_REQUEST["page"]) {
                     case 'calendario':
                         include ("calendario.php");
@@ -214,8 +227,22 @@ $result_jogos = $conn->query($sql_jogos);
                         }
                         break;
                     default:
-                        print "<h1>Jogos Disponíveis</h1>";
-                        print '<div class="cards-container" style="display: flex; flex-wrap: wrap;">';
+                        echo "<h1 class='text-center'>Jogos Disponíveis</h1>";
+                        ?>
+                        <!-- Formulário de Busca -->
+                        <form method="GET" action="">
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <input type="text" name="search_game" class="form-control" placeholder="Pesquisar por nome do jogo" value="<?php echo isset($_GET['search_game']) ? $_GET['search_game'] : ''; ?>">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="search_developer" class="form-control" placeholder="Pesquisar por nome do desenvolvedor" value="<?php echo isset($_GET['search_developer']) ? $_GET['search_developer'] : ''; ?>">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </form>
+                        <div class="cards-container" style="display: flex; flex-wrap: wrap;">
+                        <?php
                         if ($result_jogos->num_rows > 0) {
                             while ($row = $result_jogos->fetch_assoc()) {
                                 $image_path = 'img/' . $row["id_jogo"] . '_imagem.jpg';
@@ -233,8 +260,15 @@ $result_jogos = $conn->query($sql_jogos);
                         } else {
                             echo "Nenhum jogo encontrado.";
                         }
-                        print '</div>';
+                        ?>
+                        </div>
+                        <?php
+                        break;
                 }
                 ?>
             </div>
-        </div
+        </div>
+    </div>
+</body>
+
+</html>
