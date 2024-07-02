@@ -47,13 +47,22 @@ $logado = isset($_SESSION['email']);
     ';
 } ?>
 <?php if ($logado) {
+    $sql = "SELECT * FROM cargos";
+
+    $res = $conn->query($sql);
+
+    $qtd = $res->num_rows;
+    $options = "";
+    while ($row = $res->fetch_object()) {
+        $options = $options . '<option value="' . $row->id_cargo . '">' . $row->descricao_cargo . '</option>';
+    }
     echo '
     <h1>Cadastrar novo usuário</h1>
     <form action="salvar-usuario.php" method="POST">
     <input type="hidden" name="acao" value="cadastrar-admin">
     <div class="mb-3">
         <label>Cargo</label>
-        <input type="number"value="1" min="1" max="3" step="1" name="cargo" class="form-control">
+        <select name="cargo" class="form-control">' . $options . '</select>
     </div
     <div class="mb-3">
         <label>Nome</label>
