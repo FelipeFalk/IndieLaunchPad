@@ -156,7 +156,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (4,'Felipe Eduardo Falk','ThePersianBr','felipe.e.falk.27@gmail.com ',NULL,'71da484ff5975e427b90c2955a859e0c',3),(5,'Thiago Hattenhauer Pereira','Thiagohp1','thiagohattenhauer16@gmail.com ',NULL,'8970e489ab3a72a9e4e3023fd6db8949',3),(7,'Thiago Hattenhauer Pereira','thiago','thiago.pereira@ielusc.br',NULL,'202cb962ac59075b964b07152d234b70',2);
+INSERT INTO `usuarios` VALUES (4,'Felipe Eduardo Falk','Falk27','felipe.e.falk.27@gmail.com ',NULL,'71da484ff5975e427b90c2955a859e0c',3),(5,'Thiago Hattenhauer Pereira','Thiagohp1','thiagohattenhauer16@gmail.com ',NULL,'8970e489ab3a72a9e4e3023fd6db8949',3),(7,'Thiago Hattenhauer Pereira','thiago','thiago.pereira@ielusc.br',NULL,'202cb962ac59075b964b07152d234b70',2);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 

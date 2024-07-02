@@ -128,10 +128,6 @@ $result_jogos = $conn->query($sql_jogos);
                         <div class="dropdown-menu" aria-labelledby="manageGamesDropdown">
                             <a class="dropdown-item" href="?page=cadastrarJogo">Novo Jogo</a>
                             <a class="dropdown-item" href="?page=listarJogos">Editar Jogo</a>
-                            <?php if ($user_role == 3) : ?>
-                                <a class="dropdown-item" href="?page=listarJogos">Adicionar Tag</a>
-                                <a class="dropdown-item" href="?page=listarJogos">Editar Tags</a>
-                            <?php endif; ?>
                         </div>
                     </li>
                 <?php endif; ?>
