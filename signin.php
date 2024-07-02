@@ -14,7 +14,7 @@
     </div>
     <div class="mb-3">
         <label>Apelido</label>
-        <input type="text" name="Apelido" class="form-control">
+        <input type="text" name="apelido" class="form-control">
     </div>
     <div class="mb-3">
         <label>E-mail</label>
