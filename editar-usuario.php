@@ -17,10 +17,6 @@
         <input type="text" name="apelido" value="<?php print $row->apelido_usuario; ?>" class="form-control" > 
     </div>
     <div class="mb-3">
-        <label>Cargo</label>
-        <input type="number" name="cargo" value="<?php print $row->cargos_id_cargo; ?>" class="form-control" > 
-    </div>
-    <div class="mb-3">
         <label>E-mail</label>
         <input type="email" name="email" value="<?php print $row->email_usuario; ?>" class="form-control">
     </div>

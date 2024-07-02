@@ -9,8 +9,7 @@
     if($qtd > 0){
         print "<table class='table table-hover table-striped table-bordered'>";
         print "<tr>";
-        print "<th>#</th>";
-        print "<th>id_cargo</th>";    
+        print "<th>#</th>";    
         print "<th>Nome</th>";
         print "<th>Apelido</th>";
         print "<th>E-mail</th>";
@@ -18,15 +17,14 @@
         print "<tr>";
         while($row = $res->fetch_object()){
             print "<tr>";
-            print "<td>".$row->id_usuario."</td>";
-            print "<td>".$row->cargos_id_cargo."</td>"; 
+            print "<td>".$row->id_usuario."</td>";    
             print "<td>".$row->nome_real_usuario."</td>";
             print "<td>".$row->apelido_usuario."</td>";
             print "<td>".$row->email_usuario."</td>";
             print "<td>
                     <button onclick=\"location.href='?page=editar&id=".$row->id_usuario."';\" 
                     class='btn btn-success'>Editar</button>
-                    <button onclick=\"if(confirm('Você confirma a exclusão?'))
+                    <button onclick=\"if(confirm('Tem certeza que deseja exluiir?'))
                     {location.href='?page=salvar&acao=excluir&id=".$row->id_usuario."'}else{false;};\" 
                     class='btn btn-danger'>Excluir</button>
                     </td>";
