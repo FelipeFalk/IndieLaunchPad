@@ -80,7 +80,7 @@ $result_jogos = $conn->query($sql_jogos);
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link" href="?page=calendario">Calendário</a>
-                    <a class="nav-link" href="?page=addJogo">Adicionar Jogo</a>
+                    <a class="nav-link" href="?page=gerenciarJogo">Gerenciar Jogos</a>
                     <a class="nav-link" href="?page=admin">Admin</a>
                     <a class="nav-link" href="logout.php">Sair</a>
                 </div>
@@ -108,14 +108,26 @@ $result_jogos = $conn->query($sql_jogos);
                     case 'listar':
                         include ("listar-usuario.php");
                         break;
+                    case 'listarJogos':
+                        include ("listar-jogos.php");
+                        break;
                     case 'salvar':
                         include ("salvar-usuario.php");
                         break;
                     case 'editar':
                         include ("editar-usuario.php");
                         break;
-                    case 'addJogo':
-                        include('cadastrar-jogo.php');
+                    case 'gerenciarJogo':
+                        include ('gerenciar-jogos.php');
+                        break;
+                    case 'cadastrarJogo':
+                        include ('cadastrar-jogo.php');
+                        break;
+                    case 'editarJogo':
+                        include ('editar-jogo.php');
+                        break;
+                    case 'excluirJogo':
+                        include ('excluir-jogo.php');
                         break;
                     default:
                         print "<h1>Jogos Disponíveis</h1>";

@@ -48,7 +48,7 @@ switch ($_REQUEST["acao"]) {
         header('Location: index.php');
         break;
 
-    /*case 'editar':
+    case 'editar':
         $nome = $_POST["nome"];
         $email = $_POST["email"];
         $senha = md5($_POST["senha"]);
@@ -73,7 +73,7 @@ switch ($_REQUEST["acao"]) {
         }
         break;
 
-    case 'excluir':
+    /*case 'excluir':
 
         $sql = "DELETE FROM usuarios WHERE id=" . $_REQUEST["id"];
 
