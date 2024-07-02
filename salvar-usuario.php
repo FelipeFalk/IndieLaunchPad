@@ -51,7 +51,7 @@ switch ($_REQUEST["acao"]) {
                             senha_usuario = '{$senha}',
                             cargos_id_cargo = '{$senha}',
                         WHERE 
-                            id_usuario = " . $_REQUEST["id"];
+                            id_usuario_usuario = " . $_REQUEST["id"];
 
         $res = $conn->query($sql);
 
