@@ -1,4 +1,5 @@
 <?php
+<<<<<<< Updated upstream
 include_once ('db.php');
 switch ($_REQUEST["acao"]) {
     case 'cadastrar-':
@@ -6,6 +7,17 @@ switch ($_REQUEST["acao"]) {
         $apelido = $_POST["apelido"];
         $email = $_POST["email"];
         $senha = md5($_POST["senha"]);
+=======
+    include_once('db.php');
+    switch ($_REQUEST["acao"]) {
+        case 'cadastrar':
+            $nome = $_POST["nome"];
+            $apelido = $_POST["apelido"];
+            $email = $_POST["email"];
+            $senha = md5($_POST["senha"]);
+        
+            $sql = "INSERT INTO usuarios (nome_real_usuario, apelido_usuario, email_usuario, senha_usuario, cargos_id_cargo) VALUES ('{$nome}','{$apelido}','{$email}','{$senha}','1')";
+>>>>>>> Stashed changes
 
         $sql = "INSERT INTO usuarios (nome_real_usuario, apelido_usuario, email_usuario, senha_usuario, cargos_id_cargo) VALUES ('{$nome}','{$apelido}','{$email}','{$senha}','1')";
 
