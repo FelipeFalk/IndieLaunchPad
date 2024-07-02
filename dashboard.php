@@ -1,29 +1,40 @@
 <?php
 session_start();
 include_once ('db.php');
+
+// Verifica se o usuário está logado
 if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
     unset($_SESSION['email']);
     unset($_SESSION['senha']);
     header('Location: index.php');
 }
-$logado = $_SESSION['email'];
-if (!empty($_GET['search'])) {
-    $data = $_GET['search'];
-    $sql = "SELECT * FROM usuarios WHERE id_usuario LIKE '%$data%' or nome_real_usuario LIKE '%$data%' or email_usuario LIKE '%$data%' ORDER BY id_usuario DESC";
-} else {
-    $sql = "SELECT * FROM usuarios ORDER BY id_usuario DESC";
-}
-$result = $conn->query($sql);
 
-// Consulta para buscar os jogos
-$sql_jogos = 'SELECT id_jogo,
-    descricao_jogo,
-    links_jogo,
-    data_lancamento_jogo,
-    nome_jogo,
-    qntd_votos_up_jogo,
-    qntd_votos_down_jogo,
-    usuarios_id_usuario FROM jogos ORDER BY data_lancamento_jogo DESC LIMIT 50';
+// Obtém o email do usuário logado
+$logado = $_SESSION['email'];
+
+// Busca o papel do usuário logado
+$sql_user_role = "SELECT cargos_id_cargo FROM usuarios WHERE email_usuario = '$logado'";
+$result_user_role = $conn->query($sql_user_role);
+$user_role = 0;
+
+if ($result_user_role->num_rows > 0) {
+    $row = $result_user_role->fetch_assoc();
+    $user_role = $row['cargos_id_cargo'];
+}
+
+// Consulta para buscar os jogos com o nome do criador
+$sql_jogos = 'SELECT j.id_jogo,
+    j.descricao_jogo,
+    j.links_jogo,
+    j.data_lancamento_jogo,
+    j.nome_jogo,
+    j.qntd_votos_up_jogo,
+    j.qntd_votos_down_jogo,
+    j.usuarios_id_usuario,
+    u.apelido_usuario
+    FROM jogos j
+    LEFT JOIN usuarios u ON j.usuarios_id_usuario = u.id_usuario
+    ORDER BY j.data_lancamento_jogo DESC LIMIT 50';
 $result_jogos = $conn->query($sql_jogos);
 ?>
 
@@ -77,6 +88,10 @@ $result_jogos = $conn->query($sql_jogos);
         .dropdown:hover .dropdown-menu {
             display: block;
         }
+
+        h1 {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -90,26 +105,34 @@ $result_jogos = $conn->query($sql_jogos);
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="manageGamesDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Gerenciar Jogos
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="manageGamesDropdown">
-                            <a class="dropdown-item" href="?page=cadastrarJogo">Novo Jogo</a>
-                            <a class="dropdown-item" href="?page=listarJogos">Editar Jogo</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Admin
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                            <a class="dropdown-item" href="?page=signin">Cadastrar Usuário</a>
-                            <a class="dropdown-item" href="?page=listar">Listar Usuários</a>
-                        </div>
-                    </li>
+                    <?php if ($user_role == 2 || $user_role == 3): ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="manageGamesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Gerenciar Jogos
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="manageGamesDropdown">
+                                <a class="dropdown-item" href="?page=cadastrarJogo">Novo Jogo</a>
+                                <a class="dropdown-item" href="?page=listarJogos">Editar Jogo</a>
+                                <?php if ($user_role == 3): ?>
+                                    <a class="dropdown-item" href="?page=listarJogos">Adicionar Tag</a>
+                                    <a class="dropdown-item" href="?page=listarJogos">Editar Tags</a>
+                                <?php endif; ?>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+                    <?php if ($user_role == 3): ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Admin
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                                <a class="dropdown-item" href="?page=signin">Cadastrar Usuário</a>
+                                <a class="dropdown-item" href="?page=listar">Listar Usuários</a>
+                            </div>
+                        </li>
+                    <?php endif; ?>
                     <li class="nav-item">
                         <a class="nav-link" href="logout.php">Sair</a>
                     </li>
@@ -128,13 +151,23 @@ $result_jogos = $conn->query($sql_jogos);
                         include ("calendario.php");
                         break;
                     case 'admin':
-                        include ("admin.php");
+                        // Verifica se o usuário é administrador (papel 3)
+                        if ($user_role == 3) {
+                            include ("admin.php");
+                        } else {
+                            echo "<p>Você não tem permissão para acessar esta página.</p>";
+                        }
                         break;
                     case 'signin':
                         include ("signin.php");
                         break;
                     case 'listar':
-                        include ("listar-usuario.php");
+                        // Verifica se o usuário é administrador (papel 3)
+                        if ($user_role == 3) {
+                            include ("listar-usuario.php");
+                        } else {
+                            echo "<p>Você não tem permissão para acessar esta página.</p>";
+                        }
                         break;
                     case 'listarJogos':
                         include ("listar-jogos.php");
@@ -149,16 +182,36 @@ $result_jogos = $conn->query($sql_jogos);
                         include ("editar-usuario.php");
                         break;
                     case 'gerenciarJogo':
-                        include ('gerenciar-jogos.php');
+                        // Verifica se o usuário é desenvolvedor (papel 2) ou administrador (papel 3)
+                        if ($user_role == 2 || $user_role == 3) {
+                            include ('gerenciar-jogos.php');
+                        } else {
+                            echo "<p>Você não tem permissão para acessar esta página.</p>";
+                        }
                         break;
                     case 'cadastrarJogo':
-                        include ('cadastrar-jogo.php');
+                        // Verifica se o usuário é desenvolvedor (papel 2) ou administrador (papel 3)
+                        if ($user_role == 2 || $user_role == 3) {
+                            include ('cadastrar-jogo.php');
+                        } else {
+                            echo "<p>Você não tem permissão para acessar esta página.</p>";
+                        }
                         break;
                     case 'editarJogo':
-                        include ('editar-jogo.php');
+                        // Verifica se o usuário é desenvolvedor (papel 2) ou administrador (papel 3)
+                        if ($user_role == 2 || $user_role == 3) {
+                            include ('editar-jogo.php');
+                        } else {
+                            echo "<p>Você não tem permissão para acessar esta página.</p>";
+                        }
                         break;
                     case 'excluirJogo':
-                        include ('excluir-jogo.php');
+                        // Verifica se o usuário é desenvolvedor (papel 2) ou administrador (papel 3)
+                        if ($user_role == 2 || $user_role == 3) {
+                            include ('excluir-jogo.php');
+                        } else {
+                            echo "<p>Você não tem permissão para acessar esta página.</p>";
+                        }
                         break;
                     default:
                         print "<h1>Jogos Disponíveis</h1>";
@@ -172,6 +225,7 @@ $result_jogos = $conn->query($sql_jogos);
                                 echo '</div>';
                                 echo '<div class="details">';
                                 echo '<p>' . $row["descricao_jogo"] . '</p>';
+                                echo '<p>Criador: ' . $row["apelido_usuario"] . '</p>';
                                 echo '<p>Data de lançamento: ' . $row["data_lancamento_jogo"] . '</p>';
                                 echo '</div>';
                                 echo '</div>';
@@ -183,11 +237,4 @@ $result_jogos = $conn->query($sql_jogos);
                 }
                 ?>
             </div>
-        </div>
-    </div>
-
-    <script src="js/bootstrap.bundle.min.js"></script>
-
-</body>
-
-</html>
+        </div
