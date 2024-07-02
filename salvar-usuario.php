@@ -44,15 +44,14 @@ switch ($_REQUEST["acao"]) {
         $email = $_POST["email"];
         $senha = md5($_POST["senha"]);
 
-
         $sql = "UPDATE usuarios SET
-                            nome = '{$nome}',
-                            email = '{$email}',
-                            apelido = '{$apelido}',
-                            senha = '{$senha}',
+                            nome_real_usuario = '{$nome}',
+                            email_usuario = '{$email}',
+                            apelido_usuario = '{$apelido}',
+                            senha_usuario = '{$senha}',
                             cargos_id_cargo = '{$senha}',
                         WHERE 
-                            id=" . $_REQUEST["id"];
+                            id_usuario = " . $_REQUEST["id"];
 
         $res = $conn->query($sql);
 

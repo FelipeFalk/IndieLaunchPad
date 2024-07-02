@@ -1,10 +1,10 @@
 <?php
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
-    $logado = isset($_SESSION['email']);
+if (!isset($_SESSION)) {
+    session_start();
+}
+$logado = isset($_SESSION['email']);
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,14 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <title>Novo Usuário</title>
 </head>
-<?php if(!$logado){ echo '
-<h1>Cadastre-se</h1>
+<?php if (!$logado) {
+    echo '
+
+
+<div class="container">
+<div class="row">
+    <div class="col mt-5">
+    <h1>Cadastre-se</h1>
 <form action="salvar-usuario.php" method="POST">
     <input type="hidden" name="acao" value="cadastrar">
     <div class="mb-3">
@@ -35,8 +41,13 @@
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
-    ';} ?>
-    <?php if($logado){ echo '
+    </div>
+    </div>
+    </div>
+    ';
+} ?>
+<?php if ($logado) {
+    echo '
     <h1>Cadastrar novo usuário</h1>
     <form action="salvar-usuario.php" method="POST">
     <input type="hidden" name="acao" value="cadastrar-admin">
@@ -63,5 +74,6 @@
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
-    ';} ?>
+    ';
+} ?>
 </form>
