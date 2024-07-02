@@ -9,6 +9,10 @@
     <input type="hidden" name="acao" value="editar">
     <input type="hidden" name="id" value="<?php print $row->id_usuario?>">
     <div class="mb-3">
+        <label>Cargo</label>
+        <input type="number" name="cargo" value="<?php print $row->cargos_id_cargo; ?>" class="form-control" > 
+    </div>
+    <div class="mb-3">
         <label>Nome</label>
         <input type="text" name="nome" value="<?php print $row->nome_real_usuario; ?>" class="form-control" > 
     </div>
